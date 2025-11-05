@@ -1,0 +1,914 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Sum of 2 Numbers : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#!/bin/bash
+
+# Prompt user for the first number
+echo "Enter the first number:"
+read a
+
+# Prompt user for the second number
+echo "Enter the second number:"
+read b
+
+# Perform addition
+sum=$((a+b))
+
+# Display the result
+echo "The sum of a and b is: $sum"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Swap 2 inputs : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Prompt user for the first number
+echo "Enter the first number:"
+read a
+
+# Prompt user for the second number
+echo "Enter the second number:"
+read b
+
+echo "Before Swapping: a = $a and b = $b"
+
+# Swapping
+temp=$a
+a=$b
+b=$temp
+
+echo "After Swapping: a = $a and b = $b"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Multiplication of 2 Numbers : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Prompt user for the first number
+echo "Enter the first number:"
+read a
+
+# Prompt user for the second number
+echo "Enter the second number:"
+read b
+
+mul=$((a*b))
+
+# Display the result
+echo "Multiplication : $mul"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Program to find the largest among three numbers passed as command line arguments : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter first number: "
+read a
+
+echo "Enter second number: "
+read b
+
+echo "Enter third number: "
+read c
+
+if [ $a -ge $b ] && [ $a -ge $c ]
+then
+    echo "Largest number is $a"
+
+elif [ $b -ge $a ] && [ $b -ge $c ]
+then
+    echo "Largest number is $b"
+
+else
+    echo "Largest number is $c"
+fi
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a shell program to display the following mark sheets of students by taking the input marks of student through the terminal : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter marks : "
+read m
+
+if [ $m -ge 90 ] && [ $m -le 100 ]
+then
+    grade="A"
+    
+elif [ $m -ge 70 ] && [ $m -le 89 ]
+then
+    grade="B"
+
+elif [ $m -ge 40 ] && [ $m -le 69 ]
+then
+    grade="C"   
+    
+elif [ $m -lt 40 ]
+then
+    grade="F"    
+fi 
+
+echo "Grade : $grade"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a shell program to calculate the factorial of a number : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter a number: "
+read n
+
+# Validate input
+if [ $n -lt 0 ]; then
+    echo "Factorial of a negative number doesn't exist."
+    exit 1
+fi
+
+fact=1   # initialize factorial to 1
+i=1      # counter variable
+
+# Loop to calculate factorial
+while [ $i -le $n ]
+do
+    fact=$((fact * i))
+    i=$((i + 1))
+done
+
+echo "Factorial of $n is: $fact"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a shell menu driven program to do the following: 
+a. Display the current working directory. 
+b. Check whether an input number is even or odd.
+c. Display the number of counts of all the files in the directory. 
+d. Print the long listing of all the files.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+while true
+do
+    echo "1. Display the current working directory"
+    echo "2. Check whether an input number is even or odd"
+    echo "3. Display the number of files in the current directory"
+    echo "4. Display long listing of all files"
+
+    echo -n "Enter your choice [1-4]: "
+    read choice
+
+    case $choice in
+
+        1)
+            echo "Current Working Directory:"
+            pwd
+            ;;
+
+        2)
+            echo "Enter a number:"
+            read n
+            if [ $((n % 2)) -eq 0 ]; then
+                echo "$n is Even"
+            else
+                echo "$n is Odd"
+            fi
+            ;;
+
+        3)
+            count=$(ls -1 | wc -l)
+            echo "Number of files in current directory: $count"
+            ;;
+
+        4)
+            echo "Long listing of files:"
+            ls -l
+            ;;
+
+        *)
+            echo "Invalid choice! Please try again."
+            ;;
+    esac
+done
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a shell program to display all the prime numbers between 1 to 100 using while loop.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Prime Numbers between 1 & 100"
+
+num=2
+
+
+while [ $num -le 100 ]
+do
+    i=2
+    flag=0 
+    
+    while [ $i -lt $num ]
+    do
+        if [ $((num%i)) -eq 0 ]
+        then
+            flag=1 
+            break
+        fi
+        i=$((i+1))
+    done
+    
+    if [ $flag -eq 0 ]
+    then
+        echo -n " $num "
+    fi
+    
+    num=$((num+1))
+done 
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a menu program to find out whether a given letter is vowel or not.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter a single letter : "
+read letter 
+
+# Convert to lowercase to handle both upper/lower case
+letter=$(echo $letter | tr 'A-Z' 'a-z')  
+
+
+case $letter in 
+    a|e|i|o|u)
+        echo "$letter is a vowel."
+        ;;
+    *)
+        echo "$letter is NOT a vowel."
+        ;;
+esac
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a shell script which will generate the output as follows:
+*
+* *
+* * *
+* * * *
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Number of rows
+rows=4
+
+# Outer loop for each row
+for (( i=1; i<=rows; i++ ))
+do
+    # Inner loop to print stars
+    for (( j=1; j<=i; j++ ))
+    do
+        echo -n "* "
+    done
+    # Move to next line
+    echo ""
+done
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Write a shell script that computes the gross salary of a employee according to the following rules: 
+i)If basic salary is < 1500 then HRA =10% of the basic and DA =90% of the basic. 
+ii)If basic salary is >=1500 then HRA =Rs500 and DA=98% of the basic. The basic salary is entered interactively through the key board.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter Basic Salary : "
+read sal 
+
+
+if [ $sal -lt 1500 ]
+then
+    hra=$(( sal * 10 / 100 ))
+    da=$(( sal * 90 / 100 ))
+    # cant write hra=$((sal*0.10)), because only integer value is expected within (())
+else
+    hra=500 
+    da=$(( sal * 98 / 100 ))
+fi
+
+gross=$((sal+hra+da))
+
+
+echo "Basic Salary : $sal"
+echo "HRA : $hra"
+echo "DA : $da"
+echo "Gross Salary : $gross"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Print even numbers from 10-30.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+for (( i=10;i<=30;i++ ))
+do
+    if [ $((i%2)) -eq 0 ]
+    then
+        echo "$i"
+    fi
+done  
+
+           OR
+
+seq 10 2 30
+Syntax : seq <start> <increment> <end>
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Find the largest number in a list.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter numbers separated by spaces:"
+read -a arr     # -a stores input into an array
+
+# Assume the first element is the largest
+largest=${arr[0]}
+
+# Loop through the array to find the largest
+for num in "${arr[@]}"
+do
+    if [ $num -gt $largest ]
+    then
+        largest=$num
+    fi
+done
+
+echo "The largest number is: $largest"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Identify extension types of files in a current working directory.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+for file in *
+do
+    if [ -f "$file" ]
+    then
+        echo "$file  -->  ${file##*.}"
+    fi
+done
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Find all empty files in current directory.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+for file in *
+do
+    if [ -f "$file" ] && [ ! -s "$file" ]
+    then
+        echo "$file"
+    fi
+done
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Print the multiplication table for numbers 3 to 5.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Outer loop for numbers 3 to 5
+for ((num=3; num<=5; num++))
+do
+    echo "Multiplication Table for $num:"
+    echo "---------------------------"
+    
+    # Inner loop for multiplying by 1 to 10
+    for ((i=1; i<=10; i++))
+    do
+        result=$((num * i))
+        echo "$num x $i = $result"
+    done
+    
+    echo ""  # Empty line for spacing
+done
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Print the number divisible by 3 in a given range. (Suppose 1-30)
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "Numbers divisible by 3 between 1 and 30:"
+
+for ((i=1; i<=30; i++))
+do
+    if (( i % 3 == 0 ))
+    then
+        echo -n "$i "
+    fi
+done
+
+echo ""  # For a newline at the end
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Print the strings longer than 5 characters.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Sample list of strings
+strings=("apple" "banana" "cat" "elephant" "dog" "grapefruit")
+
+echo "Strings longer than 5 characters:"
+
+for str in "${strings[@]}"
+do
+    if [ ${#str} -gt 5 ]
+    then
+        echo "$str"
+    fi
+done
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+FIRST COME FIRST SERVE : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    // n : no.of process, i : loop counter
+    float avg_wait = 0, avg_tat = 0;
+
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], bt[n], at[n], wt[n], tat[n], ct[n];
+
+    // Input burst time and arrival time
+    for (i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("\nEnter Arrival Time and Burst Time for Process P%d: ", pid[i]);
+        scanf("%d %d", &at[i], &bt[i]);
+    }
+
+    // Sorting processes by arrival time (important for FCFS)
+    for (i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (at[i] > at[j]) {
+                // Swap arrival time
+                int temp = at[i];
+                at[i] = at[j];
+                at[j] = temp;
+                // Swap burst time
+                temp = bt[i];
+                bt[i] = bt[j];
+                bt[j] = temp;
+                // Swap process ID
+                temp = pid[i];
+                pid[i] = pid[j];
+                pid[j] = temp;
+            }
+        }
+    }
+
+    // Calculate Completion, Turnaround and Waiting times
+    ct[0] = at[0] + bt[0]; // first process
+    for (i = 1; i < n; i++) {
+        if (at[i] > ct[i - 1])
+            ct[i] = at[i] + bt[i]; // CPU idle
+        else
+            ct[i] = ct[i - 1] + bt[i];
+    }
+
+    for (i = 0; i < n; i++) {
+        tat[i] = ct[i] - at[i];
+        wt[i] = tat[i] - bt[i];
+        avg_tat += tat[i];
+        avg_wait += wt[i];
+    }
+
+    avg_tat /= n;
+    avg_wait /= n;
+
+    // Display results
+    printf("\n---------------------------------------------------------------");
+    printf("\nProcess\tAT\tBT\tCT\tTAT\tWT");
+    printf("\n---------------------------------------------------------------");
+    for (i = 0; i < n; i++) {
+        printf("\n  P%d\t%d\t%d\t%d\t%d\t%d", pid[i], at[i], bt[i], ct[i], tat[i], wt[i]);
+    }
+    printf("\n---------------------------------------------------------------");
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wait);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SHORTEST JOB FIRST : (without arrival time)
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    float avg_tat = 0, avg_wt = 0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], bt[n], ct[n], tat[n], wt[n];
+
+    // Input burst times
+    for(i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("Enter Burst Time of P%d: ", pid[i]);
+        scanf("%d", &bt[i]);
+    }
+
+    // Sort processes by burst time
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(bt[i] > bt[j]) {
+                int temp = bt[i]; bt[i] = bt[j]; bt[j] = temp;
+                temp = pid[i]; pid[i] = pid[j]; pid[j] = temp;
+            }
+        }
+    }
+
+    // Calculate Completion, TAT, WT
+    ct[0] = bt[0];
+    tat[0] = ct[0];
+    wt[0] = 0;
+    avg_tat += tat[0];
+
+    for(i = 1; i < n; i++) {
+        ct[i] = ct[i-1] + bt[i];
+        tat[i] = ct[i];       // AT = 0, so TAT = CT
+        wt[i] = tat[i] - bt[i];
+        avg_tat += tat[i];
+        avg_wt += wt[i];
+    }
+
+    avg_tat /= n;
+    avg_wt /= n;
+
+    // Print results
+    printf("\nPID\tBT\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t%d\t%d\n", pid[i], bt[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wt);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SHORTEST JOB FIRST : (with arrival time)
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    float avg_tat = 0, avg_wt = 0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], at[n], bt[n], ct[n], tat[n], wt[n];
+    int bt_copy[n]; // copy of burst times for sorting
+
+    // Input Arrival and Burst Times
+    for(i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("Enter Arrival Time and Burst Time of P%d: ", pid[i]);
+        scanf("%d %d", &at[i], &bt[i]);
+        bt_copy[i] = bt[i]; // store original burst time
+    }
+
+    // Initialize remaining process flags
+    int completed[n];
+    for(i = 0; i < n; i++)
+        completed[i] = 0;
+
+    int current_time = 0;
+    int completed_count = 0;
+
+    while(completed_count < n) {
+        int idx = -1;
+        int min_bt = 100000; // large number
+
+        // Find process with minimum burst time among arrived processes
+        for(i = 0; i < n; i++) {
+            if(at[i] <= current_time && completed[i] == 0) {
+                if(bt[i] < min_bt) {
+                    min_bt = bt[i];
+                    idx = i;
+                }
+                // If two processes have same BT, choose by arrival time
+                else if(bt[i] == min_bt && at[i] < at[idx]) {
+                    idx = i;
+                }
+            }
+        }
+
+        // If no process has arrived, increment time
+        if(idx == -1) {
+            current_time++;
+        } else {
+            // Execute process
+            ct[idx] = current_time + bt[idx];
+            tat[idx] = ct[idx] - at[idx];
+            wt[idx] = tat[idx] - bt[idx];
+
+            avg_tat += tat[idx];
+            avg_wt += wt[idx];
+
+            completed[idx] = 1; // mark as completed
+            completed_count++;
+            current_time = ct[idx]; // move current time
+        }
+    }
+
+    // Print results
+    printf("\nPID\tAT\tBT\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t%d\t%d\t%d\n", pid[i], at[i], bt_copy[i], ct[i], tat[i], wt[i]);
+    }
+
+    avg_tat /= n;
+    avg_wt /= n;
+
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wt);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------.
+PRIORITY SCHEDULING : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    float avg_tat = 0, avg_wt = 0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], bt[n], priority[n], ct[n], tat[n], wt[n];
+
+    // Input burst time and priority
+    for(i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("Enter Burst Time and Priority of P%d: ", pid[i]);
+        scanf("%d %d", &bt[i], &priority[i]);
+    }
+
+    // Sort processes based on priority (ascending: smaller number = higher priority)
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(priority[i] > priority[j]) {
+                // Swap priority
+                int temp = priority[i]; priority[i] = priority[j]; priority[j] = temp;
+                // Swap burst time
+                temp = bt[i]; bt[i] = bt[j]; bt[j] = temp;
+                // Swap process ID
+                temp = pid[i]; pid[i] = pid[j]; pid[j] = temp;
+            }
+        }
+    }
+
+    // Calculate Completion Time, TAT, WT
+    ct[0] = bt[0];
+    tat[0] = ct[0];
+    wt[0] = 0;
+    avg_tat += tat[0];
+
+    for(i = 1; i < n; i++) {
+        ct[i] = ct[i-1] + bt[i];
+        tat[i] = ct[i];       // AT = 0, so TAT = CT
+        wt[i] = tat[i] - bt[i];
+        avg_tat += tat[i];
+        avg_wt += wt[i];
+    }
+
+    avg_tat /= n;
+    avg_wt /= n;
+
+    // Print results
+    printf("\nPID\tBT\tPriority\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t\t%d\t%d\t%d\n", pid[i], bt[i], priority[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wt);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ROUND ROBIN SCHEDULING : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i, tq;
+    float avg_tat = 0, avg_wt = 0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], bt[n], rt[n], ct[n], tat[n], wt[n];
+    int done = 0; // count of completed processes
+
+    // Input burst times
+    for(i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("Enter Burst Time of P%d: ", pid[i]);
+        scanf("%d", &bt[i]);
+        rt[i] = bt[i]; // remaining time
+    }
+
+    printf("Enter Time Quantum: ");
+    scanf("%d", &tq);
+
+    int current_time = 0;
+    while(done < n) {
+        for(i = 0; i < n; i++) {
+            if(rt[i] > 0) {
+                if(rt[i] <= tq) {
+                    // Process finishes in this round
+                    current_time += rt[i];
+                    ct[i] = current_time;
+                    rt[i] = 0;
+                    done++;
+                } else {
+                    // Process executes for time quantum
+                    rt[i] -= tq;
+                    current_time += tq;
+                }
+            }
+        }
+    }
+
+    // Calculate TAT and WT
+    for(i = 0; i < n; i++) {
+        tat[i] = ct[i];        // AT = 0, so TAT = CT
+        wt[i] = tat[i] - bt[i];
+        avg_tat += tat[i];
+        avg_wt += wt[i];
+    }
+
+    avg_tat /= n;
+    avg_wt /= n;
+
+    // Print results
+    printf("\nPID\tBT\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t%d\t%d\n", pid[i], bt[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wt);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SHORTEST JOB FIRST (PREMTIVE) : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], at[n], bt[n], rt[n], ct[n], tat[n], wt[n];
+    float avg_tat = 0, avg_wt = 0;
+
+    // Input arrival and burst times
+    for(i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("Enter Arrival Time and Burst Time of P%d: ", pid[i]);
+        scanf("%d %d", &at[i], &bt[i]);
+        rt[i] = bt[i]; // remaining time initially equals burst time
+    }
+
+    int completed = 0, current_time = 0;
+    int min_index;
+    int min_rt;
+    
+    while(completed != n) {
+        min_rt = 100000; // large number
+        min_index = -1;
+
+        // Find process with minimum remaining time that has arrived
+        for(i = 0; i < n; i++) {
+            if(at[i] <= current_time && rt[i] > 0) {
+                if(rt[i] < min_rt) {
+                    min_rt = rt[i];
+                    min_index = i;
+                }
+            }
+        }
+
+        if(min_index == -1) {
+            current_time++; // no process has arrived yet
+            continue;
+        }
+
+        // Execute process for 1 unit of time
+        rt[min_index]--;
+        current_time++;
+
+        // If process is finished
+        if(rt[min_index] == 0) {
+            completed++;
+            ct[min_index] = current_time;
+            tat[min_index] = ct[min_index] - at[min_index];
+            wt[min_index] = tat[min_index] - bt[min_index];
+            avg_tat += tat[min_index];
+            avg_wt += wt[min_index];
+        }
+    }
+
+    avg_tat /= n;
+    avg_wt /= n;
+
+    // Print results
+    printf("\nPID\tAT\tBT\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t%d\t%d\t%d\n", pid[i], at[i], bt[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wt);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+PRIORITY SCHEDULING (PREMTIVE) : 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[n], at[n], bt[n], priority[n], rt[n], ct[n], tat[n], wt[n];
+    float avg_tat = 0, avg_wt = 0;
+
+    // Input arrival time, burst time, and priority
+    for(i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("Enter Arrival Time, Burst Time and Priority of P%d: ", pid[i]);
+        scanf("%d %d %d", &at[i], &bt[i], &priority[i]);
+        rt[i] = bt[i]; // remaining time
+    }
+
+    int completed = 0, current_time = 0;
+    int min_index;
+    int highest_priority;
+    
+    while(completed != n) {
+        highest_priority = 100000; // smaller number = higher priority
+        min_index = -1;
+
+        // Find process with highest priority among arrived and not completed
+        for(i = 0; i < n; i++) {
+            if(at[i] <= current_time && rt[i] > 0) {
+                if(priority[i] < highest_priority) {
+                    highest_priority = priority[i];
+                    min_index = i;
+                }
+            }
+        }
+
+        if(min_index == -1) {
+            current_time++; // no process arrived yet
+            continue;
+        }
+
+        // Execute process for 1 unit of time
+        rt[min_index]--;
+        current_time++;
+
+        // If process finished
+        if(rt[min_index] == 0) {
+            completed++;
+            ct[min_index] = current_time;
+            tat[min_index] = ct[min_index] - at[min_index];
+            wt[min_index] = tat[min_index] - bt[min_index];
+            avg_tat += tat[min_index];
+            avg_wt += wt[min_index];
+        }
+    }
+
+    avg_tat /= n;
+    avg_wt /= n;
+
+    // Print results
+    printf("\nPID\tAT\tBT\tPriority\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t%d\t\t%d\t%d\t%d\n", pid[i], at[i], bt[i], priority[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Turnaround Time = %.2f", avg_tat);
+    printf("\nAverage Waiting Time    = %.2f\n", avg_wt);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
